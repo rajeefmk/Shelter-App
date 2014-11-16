@@ -438,7 +438,7 @@ int id action_menu_presenter 0x7f08002e
 int id action_mode_bar 0x7f080041
 int id action_mode_bar_stub 0x7f080040
 int id action_mode_close_button 0x7f080033
-int id action_settings 0x7f080054
+int id action_settings 0x7f080055
 int id activity_chooser_view_content 0x7f080034
 int id always 0x7f08001e
 int id beginning 0x7f080023
@@ -503,6 +503,7 @@ int id strict_sandbox 0x7f080009
 int id submit_area 0x7f08004f
 int id tabMode 0x7f080015
 int id terrain 0x7f080003
+int id testData 0x7f080054
 int id textview 0x7f080053
 int id title 0x7f08003a
 int id top 0x7f080026
@@ -537,6 +538,7 @@ int layout abc_search_view 0x7f030015
 int layout abc_simple_dropdown_hint 0x7f030016
 int layout activity_main 0x7f030017
 int layout support_simple_spinner_dropdown_item 0x7f030018
+int layout test_data 0x7f030019
 int menu main 0x7f0c0000
 int string abc_action_bar_home_description 0x7f060024
 int string abc_action_bar_home_description_format 0x7f060027

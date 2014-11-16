@@ -27,8 +27,10 @@ public class AsyncTokenAuth extends AsyncTask<Void, Void, String> {
 	
 	ProgressDialog mProgressDialog;
 	String response;
+	String api_key;
 	
 	JSONObject mHeaderData;
+	JSONObject responseData;
 	
 	public AsyncTokenAuth(LoginActivity mLA, String mail ){
 		
@@ -49,7 +51,7 @@ public class AsyncTokenAuth extends AsyncTask<Void, Void, String> {
 
 	@Override
 	protected String doInBackground(Void... params) {
-try{
+		try{
 			
 			String token = fetchtoken();
 			
@@ -57,15 +59,22 @@ try{
 				
 				mHeaderData = new JSONObject();
 				mHeaderData.put("Authorization", token);
-				mHeaderData.put("Android_Secret"," 814035995890-cr3rvvteqpmvr1m0llnlndtphb7bta3h");
+				mHeaderData.put("Android_Secret","Banjarapalya");
 				
-				
-				
-				
-				Log.i(TAG,Token + " is stored in Global Variable");
+				Log.i(TAG,token + " is stored in Global Variable");
 				
 				ServiceHandler sh = new ServiceHandler();
 				response = sh.tokenAuthenticate(mHeaderData, url);
+				Log.i(TAG,"Response obtainted");
+				
+				//Getting api_key from JSON Object
+				responseData = new JSONObject(response);
+				Log.i(TAG,"Response is passed to JSONObject");
+				
+				api_key = responseData.getString("api_key");
+				Log.i(TAG,api_key + "is obtained");
+				
+				
 			}
 		}catch(IOException e){
 			e.printStackTrace();
@@ -74,7 +83,7 @@ try{
 			e.printStackTrace();
 		}
 		
-		return response;
+		return api_key;
 	}
 	
 private String fetchtoken() throws IOException {
@@ -111,7 +120,9 @@ private String fetchtoken() throws IOException {
 		if (mProgressDialog.isShowing())
 			mProgressDialog.dismiss();
 		
+		
 		mLogin.resultOfAuth(result);
+		Log.i(TAG,result + "Is passed to main thread");
 		
 		
 	}

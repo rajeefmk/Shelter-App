@@ -4,6 +4,8 @@ import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ public class LoginActivity extends Activity {
 	SignInButton googlePlusButton;
 	TextView mStatus;
 	String mEmail;
+	SharedPreferences mSharedP;
 	
 
     @Override
@@ -120,9 +123,17 @@ public class LoginActivity extends Activity {
     }
     
     protected void resultOfAuth(String result){
+    	
+    	mSharedP = getSharedPreferences("shelterapp",MODE_PRIVATE);
+    	Editor mEditor = mSharedP.edit();
+    	mEditor.putString("api_key", result);
+    	mEditor.commit();
+    	Log.i("tag",result+"is stored in SP");
 	
-    	Log.i(TAG,"resultofAuth is called");
-    	mStatus.setText(result);
+    	Intent mIntent = new Intent(LoginActivity.this, TestPage.class);
+    	Log.i("tag","Intent is intiated");
+    	startActivity(mIntent);
+    	Log.i("tag","Intent activity Started");
     }
     
     @Override
