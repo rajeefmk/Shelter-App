@@ -1,7 +1,14 @@
 package us.jaaga.cfi.shelterapp;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,19 +22,29 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request.Method;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.SignInButton;
 
 
 public class LoginActivity extends Activity {
 	
-	protected static final String TAG = "debug";
+	private static String TAG = LoginActivity.class.getSimpleName();
+	private static final String url = "http://192.168.0.107:3000/api/android/auth/";
 	private static final int REQUEST_CODE_PICK_ACCOUNT = 0;
 	private static final int REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR = 0;
 	SignInButton googlePlusButton;
 	TextView mStatus;
 	String mEmail;
 	SharedPreferences mSharedP;
+	ProgressDialog pDialog;
+	String token;
 	
 
     @Override
@@ -103,8 +120,14 @@ public class LoginActivity extends Activity {
 			
 			if(isDeviceOnline()){
 				
-				new AsyncTokenAuth(LoginActivity.this,mEmail).execute();
-				Log.i(TAG,"AsyncToken Async task is passed arguments from getUsername");
+				pDialog = new ProgressDialog(this);
+		        pDialog.setMessage("Please wait...");
+		        pDialog.setCancelable(false);
+		        showpDialog();
+		        
+		        new AsyncTokenAuth(LoginActivity.this,mEmail).execute();
+		        Log.i(TAG,"AsyncToken Async task is passed arguments from getUsername");
+				
 			}
 			else{
 				
@@ -113,6 +136,16 @@ public class LoginActivity extends Activity {
 		}
 		
 		
+	}
+	
+	private void hidepDialog() {
+		if(pDialog.isShowing())
+			pDialog.dismiss();
+	}
+
+	private void showpDialog() {
+		if (!pDialog.isShowing())
+			pDialog.show();
 	}
     
     private void pickUserAccount() {
@@ -124,16 +157,76 @@ public class LoginActivity extends Activity {
     
     protected void resultOfAuth(String result){
     	
-    	mSharedP = getSharedPreferences("shelterapp",MODE_PRIVATE);
-    	Editor mEditor = mSharedP.edit();
-    	mEditor.putString("api_key", result);
-    	mEditor.commit();
-    	Log.i("tag",result+"is stored in SP");
-	
-    	Intent mIntent = new Intent(LoginActivity.this, TestPage.class);
-    	Log.i("tag","Intent is intiated");
-    	startActivity(mIntent);
-    	Log.i("tag","Intent activity Started");
+    	token = result;
+    	Log.i(TAG, result + " is passed to " + token);
+    	
+    	JsonObjectRequest jsonObjectToken = new JsonObjectRequest(Method.POST, url, null, new Response.Listener<JSONObject>() {
+    		
+			@Override
+			public void onResponse(JSONObject response) {
+				Log.i(TAG, response.toString());
+				
+				try{
+					
+					String api_key = response.getString("api_key");
+					
+					mSharedP = getSharedPreferences("shelterapp",MODE_PRIVATE);
+			    	Editor mEditor = mSharedP.edit();
+			    	mEditor.putString("api_key", api_key);
+			    	mEditor.commit();
+			    	Log.i("tag",api_key+"is stored in SP");
+			    	
+			    	Intent mIntent = new Intent(LoginActivity.this, TestPage.class);
+			    	Log.i("tag","Intent is intiated");
+			    	startActivity(mIntent);
+			    	Log.i("tag","Intent activity Started");
+			    	
+					
+				}catch  (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),
+                            "Error: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+				
+			}
+		
+		
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                hidepDialog();
+                Log.i(TAG, "Error: " + error);
+			}
+			
+		}) {
+			
+        	public Map<String, String> getHeaders() throws AuthFailureError {
+				
+        		HashMap<String, String> headers = new HashMap<String, String>();
+    			headers.put("Content-Type", "application/json");
+    			headers.put("Android_Secret","Banjarapalya");
+    			headers.put("Authorization", token);
+    			
+        		
+        		return headers;
+        	
+        	}
+	        		
+       
+	};
+		
+		jsonObjectToken.setRetryPolicy(new  DefaultRetryPolicy(
+				50000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+			
+			));
+    
+		AppController.getInstance().addToRequestQueue(jsonObjectToken);
+    	
     }
     
     @Override

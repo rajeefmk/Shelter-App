@@ -471,6 +471,7 @@ int id ifRoom 0x7f08001d
 int id image 0x7f080036
 int id listMode 0x7f080014
 int id list_item 0x7f080038
+int id map 0x7f080054
 int id match_parent 0x7f08000c
 int id middle 0x7f080024
 int id monochrome 0x7f080013
@@ -503,7 +504,6 @@ int id strict_sandbox 0x7f080009
 int id submit_area 0x7f08004f
 int id tabMode 0x7f080015
 int id terrain 0x7f080003
-int id testData 0x7f080054
 int id textview 0x7f080053
 int id title 0x7f08003a
 int id top 0x7f080026

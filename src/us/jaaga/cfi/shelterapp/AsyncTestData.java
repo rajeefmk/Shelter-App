@@ -47,7 +47,7 @@ public class AsyncTestData extends AsyncTask<Void, Void, String> {
 		if (mProgressDialog.isShowing())
 			mProgressDialog.dismiss();
 		
-		mTestPage.setDisplay(result);
+		//mTestPage.setDisplay(result);
 	
 	}
 

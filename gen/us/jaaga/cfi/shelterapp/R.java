@@ -2064,6 +2064,7 @@ containing a value of this type.
         public static final int image=0x7f080036;
         public static final int listMode=0x7f080014;
         public static final int list_item=0x7f080038;
+        public static final int map=0x7f080054;
         public static final int match_parent=0x7f08000c;
         public static final int middle=0x7f080024;
         public static final int monochrome=0x7f080013;
@@ -2096,7 +2097,6 @@ containing a value of this type.
         public static final int submit_area=0x7f08004f;
         public static final int tabMode=0x7f080015;
         public static final int terrain=0x7f080003;
-        public static final int testData=0x7f080054;
         public static final int textview=0x7f080053;
         public static final int title=0x7f08003a;
         public static final int top=0x7f080026;
