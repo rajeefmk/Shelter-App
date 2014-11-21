@@ -37,7 +37,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class TestPage extends FragmentActivity {
 	
-	private GoogleMap mMap;
+	private GoogleMap mMap=null;
 	private SupportMapFragment mMapFragment;
 	private Marker customMarker;
 	private LatLng markerLatLng;
@@ -48,6 +48,7 @@ public class TestPage extends FragmentActivity {
 	Button mButton;
 	ProgressDialog pDialog;
 	String api_key;
+	LatLngBounds llb;
 	//private static final String url = "http://192.168.0.107:3000/api/shelters/";
 	//private static final String url = " http://demo3635045.mockable.io/jsonarray";
 	private static final String url = "http://demo3635045.mockable.io/latlng";
@@ -80,7 +81,7 @@ public class TestPage extends FragmentActivity {
 			
 			try{
 				
-				String jsonResponse = "";
+				//String jsonResponse = "";
 				
 				JSONArray testArray = response.getJSONArray("shelters");
 				
@@ -102,6 +103,7 @@ public class TestPage extends FragmentActivity {
 					mMO.setLongitude(longitude);
 					
 					mapMarkers.add(mMO);
+					Log.i(TAG,"Object is added to ArrayList ");
 					
 					
 					
@@ -112,7 +114,10 @@ public class TestPage extends FragmentActivity {
 				}
 				
 				//setDisplay(jsonResponse);
-				setUpMapIfNeeded();
+				
+				
+				setUpMapIfNeeded(mapMarkers);
+				Log.i(TAG,"SetUpMapifNeeded is Called");
 				hidepDialog();
 				
 			}catch  (JSONException e) {
@@ -152,82 +157,94 @@ public class TestPage extends FragmentActivity {
     
         	//Adding request to request queue
         	AppController.getInstance().addToRequestQueue(jsonObject);
+        	Log.i(TAG,"Volley Object added to requst");
         
         		
 	
 		
 	}
 	
-	private void setUpMapIfNeeded() {
+	private void setUpMapIfNeeded(ArrayList<MarkerObject> mapMarkers2) {
+		
+		Log.i(TAG,"Received mapMakers ArrayList" + mapMarkers2);
 		
 		if(mMap == null) {
 			
 			mMapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
+			Log.i(TAG,"MapFragment is loaded");
+			
 			mMap = mMapFragment.getMap();
+			Log.i(TAG,"Map is obtained from fragment");
+			
 			if(mMap != null) {
 				
-				setUpMap(mapMarkers);
-			}
-		}
-		
-	}
-			
-	private void setUpMap(ArrayList<MarkerObject> mapMarkers2) {
-		
-		//markerLatLng = new LatLng(12.830268,77.485662);
-		
-		for(int i=0; i<mapMarkers2.size(); i++) {
-			
-			customMarker = mMap.addMarker(new MarkerOptions()
-			.position(new LatLng(mapMarkers.get(i).getLatitude(), mapMarkers.get(i).getLongitude()))
-			.title(mapMarkers.get(i).getName())
-			.snippet(mapMarkers.get(i).getContact()));
-			
-		}
-		
-		
-		final View mapView = getSupportFragmentManager().findFragmentById(R.id.map).getView();
-		if(mapView.getViewTreeObserver().isAlive()) {
-			
-			mapView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+				/*setUpMap(mapMarkers);
+				Log.i(TAG,"SetUpMap is called");*/
 				
-				@Override
-				public void onGlobalLayout() {
+				for(int i=0; i<mapMarkers2.size(); i++) {
 					
-					/*LatLngBounds bounds = new LatLngBounds.Builder()
-														  .include(markerLatLng).build();*/
+					customMarker = mMap.addMarker(new MarkerOptions()
+					.position(new LatLng(mapMarkers.get(i).getLatitude(), mapMarkers.get(i).getLongitude()))
+					.title(mapMarkers.get(i).getName())
+					.snippet(mapMarkers.get(i).getContact()));
 					
-					LatLngBounds.Builder bld = new LatLngBounds.Builder();
-					for(int i=0; i<mapMarkers.size(); i++) {
-						
-						LatLng ll = new LatLng(mapMarkers.get(i).getLatitude(), mapMarkers.get(i).getLongitude());
-						
-						bld.include(ll);
-					}
-					
-					LatLngBounds bounds = bld.build();
-					
-					if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-						
-						mapView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-					}else {
-						
-						mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-					}
-					
-					mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,50));
+					Log.i(TAG,"CustomMarker Created ");
 					
 				}
-			});
+				
+				LatLngBounds.Builder bld = new LatLngBounds.Builder();
+				
+				for(int i=0; i<mapMarkers.size(); i++) {
+					
+					markerLatLng = new LatLng(mapMarkers.get(i).getLatitude(), mapMarkers.get(i).getLongitude());
+						
+					  bld.include(markerLatLng);
+				}
+				
+				llb = bld.build();
+				
+				try{
+					mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(llb,15));
 			
-			
-			
+				}catch (IllegalStateException e) {
+				
+					e.printStackTrace();
+					
+					final View mapView = getSupportFragmentManager().findFragmentById(R.id.map).getView();
+					Log.i(TAG,"MapView is obtained ");
+					
+					if(mapView.getViewTreeObserver().isAlive()) {
+						
+						mapView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+							
+									@Override
+									public void onGlobalLayout() {
+								
+										if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+										mapView.getViewTreeObserver()
+				                        .removeGlobalOnLayoutListener(this);
+										} else {
+											mapView.getViewTreeObserver()
+											.removeOnGlobalLayoutListener(this);
+										}
+								
+										mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(llb,1));
+									}
+						});
+					
+					};
+						
+					mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(llb,15));
+				
+				};
+			}
+				
 			
 		}
-	
+	};
 		
-	}
-
+			
+	
 	private void hidepDialog() {
 		if(pDialog.isShowing())
 			pDialog.dismiss();
@@ -252,4 +269,5 @@ public class TestPage extends FragmentActivity {
 		
 	}
 
+	
 }
