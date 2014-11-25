@@ -176,7 +176,7 @@ public class LoginActivity extends Activity {
 			    	mEditor.commit();
 			    	Log.i("tag",api_key+"is stored in SP");
 			    	
-			    	Intent mIntent = new Intent(LoginActivity.this, TestPage.class);
+			    	Intent mIntent = new Intent(LoginActivity.this, MainMaps.class);
 			    	Log.i("tag","Intent is intiated");
 			    	startActivity(mIntent);
 			    	Log.i("tag","Intent activity Started");
