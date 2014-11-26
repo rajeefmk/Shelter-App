@@ -14,9 +14,10 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
@@ -349,5 +350,58 @@ public class MainMaps extends ActionBarActivity{
 		
 	}
 
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	boolean canAddItem = false;
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		if(item.getItemId() == R.id.action_addItem) {
+			
+			invalidateOptionsMenu();
+			
+		}
+			
+		else{
+			
+			Toast.makeText(this, item.getTitle()+" Clicked!", Toast.LENGTH_SHORT).show();
+		}
+		
+		return super.onOptionsItemSelected(item);
+	}
+	
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		
+		if(canAddItem) {
+			
+			//menu.getItem(0).setIcon(R.drawable.ic_action_accept);
+			
+			menu.getItem(1).setIcon(R.drawable.ic_action_refresh);
+			
+			//Code for adding new actionbar item in runtime
+			/*MenuItem mi = menu.add("New Item");
+			mi.setIcon(R.drawable.ic_action_cancel);
+			mi.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);*/
+			canAddItem = false;
+			
+		}else {
+			
+			menu.getItem(0).setIcon(R.drawable.ic_action_new);
+			canAddItem = true;
+			
+		}
+		
+		return super.onPrepareOptionsMenu(menu);
+	}
+	
 	
 }

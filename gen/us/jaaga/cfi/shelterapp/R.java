@@ -2009,15 +2009,20 @@ containing a value of this type.
         public static final int common_signin_btn_text_normal_light=0x7f02004a;
         public static final int common_signin_btn_text_pressed_dark=0x7f02004b;
         public static final int common_signin_btn_text_pressed_light=0x7f02004c;
-        public static final int ic_launcher=0x7f02004d;
-        public static final int ic_plusone_medium_off_client=0x7f02004e;
-        public static final int ic_plusone_small_off_client=0x7f02004f;
-        public static final int ic_plusone_standard_off_client=0x7f020050;
-        public static final int ic_plusone_tall_off_client=0x7f020051;
-        public static final int powered_by_google_dark=0x7f020052;
-        public static final int powered_by_google_light=0x7f020053;
+        public static final int ic_action_accept=0x7f02004d;
+        public static final int ic_action_cancel=0x7f02004e;
+        public static final int ic_action_new=0x7f02004f;
+        public static final int ic_action_refresh=0x7f020050;
+        public static final int ic_launcher=0x7f020051;
+        public static final int ic_plusone_medium_off_client=0x7f020052;
+        public static final int ic_plusone_small_off_client=0x7f020053;
+        public static final int ic_plusone_standard_off_client=0x7f020054;
+        public static final int ic_plusone_tall_off_client=0x7f020055;
+        public static final int powered_by_google_dark=0x7f020056;
+        public static final int powered_by_google_light=0x7f020057;
     }
     public static final class id {
+        public static final int action_addItem=0x7f080056;
         public static final int action_bar=0x7f080044;
         public static final int action_bar_activity_content=0x7f08002b;
         public static final int action_bar_container=0x7f080043;
@@ -2217,7 +2222,11 @@ containing a value of this type.
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f060030;
         public static final int accept=0x7f060002;
+        public static final int acceptItem=0x7f060036;
         public static final int action_settings=0x7f060034;
+        /**  actionbar icon names 
+         */
+        public static final int addItem=0x7f060035;
         public static final int app_name=0x7f060032;
         /**   Text for notification shown when the Android Wear apps needs to be updated. Only shown on the wearable. [CHAR LIMIT=NONE] 
          */

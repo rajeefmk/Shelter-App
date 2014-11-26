@@ -4,5 +4,9 @@
     <string name="app_name">Shelter App</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+  
+ <!-- actionbar icon names -->
+	<string name="addItem">Add New Shelter</string>
+	<string name="acceptItem">Finished Adding</string>
 
 </resources>
