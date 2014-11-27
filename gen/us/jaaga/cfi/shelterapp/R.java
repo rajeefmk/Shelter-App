@@ -2022,7 +2022,7 @@ containing a value of this type.
         public static final int powered_by_google_light=0x7f020057;
     }
     public static final class id {
-        public static final int action_addItem=0x7f080058;
+        public static final int action_addItem=0x7f080059;
         public static final int action_bar=0x7f080044;
         public static final int action_bar_activity_content=0x7f08002b;
         public static final int action_bar_container=0x7f080043;
@@ -2036,7 +2036,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f080041;
         public static final int action_mode_bar_stub=0x7f080040;
         public static final int action_mode_close_button=0x7f080033;
-        public static final int action_refreshItem=0x7f080059;
+        public static final int action_refreshItem=0x7f08005a;
         public static final int activity_chooser_view_content=0x7f080034;
         public static final int always=0x7f08001e;
         public static final int beginning=0x7f080023;
@@ -2049,7 +2049,7 @@ containing a value of this type.
         public static final int checkbox=0x7f08003c;
         public static final int classic=0x7f080011;
         public static final int collapseActionView=0x7f080020;
-        public static final int contactNumber=0x7f080055;
+        public static final int contactNumber=0x7f080056;
         public static final int decor_content_parent=0x7f080042;
         public static final int default_activity_button=0x7f080037;
         public static final int dialog=0x7f080021;
@@ -2060,6 +2060,7 @@ containing a value of this type.
         public static final int expand_activities_button=0x7f080035;
         public static final int expanded_menu=0x7f08003b;
         public static final int grayscale=0x7f080012;
+        public static final int header=0x7f080054;
         public static final int holo_dark=0x7f080005;
         public static final int holo_light=0x7f080006;
         public static final int home=0x7f080028;
@@ -2070,7 +2071,7 @@ containing a value of this type.
         public static final int image=0x7f080036;
         public static final int listMode=0x7f080014;
         public static final int list_item=0x7f080038;
-        public static final int map=0x7f080057;
+        public static final int map=0x7f080058;
         public static final int match_parent=0x7f08000c;
         public static final int middle=0x7f080024;
         public static final int monochrome=0x7f080013;
@@ -2081,7 +2082,7 @@ containing a value of this type.
         public static final int progress_circular=0x7f08002f;
         public static final int progress_horizontal=0x7f080030;
         public static final int radio=0x7f08003e;
-        public static final int reverseGeoCode=0x7f080056;
+        public static final int reverseGeoCode=0x7f080057;
         public static final int sandbox=0x7f080008;
         public static final int satellite=0x7f080002;
         public static final int search_badge=0x7f080048;
@@ -2095,7 +2096,7 @@ containing a value of this type.
         public static final int search_src_text=0x7f08004d;
         public static final int search_voice_btn=0x7f080051;
         public static final int selectionDetails=0x7f08000b;
-        public static final int shelterName=0x7f080054;
+        public static final int shelterName=0x7f080055;
         public static final int shortcut=0x7f08003d;
         public static final int showCustom=0x7f08001a;
         public static final int showHome=0x7f080017;
@@ -2330,15 +2331,16 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060020;
-        public static final int contact_number=0x7f060038;
+        public static final int contact_number=0x7f060039;
         public static final int create_calendar_message=0x7f060005;
         public static final int create_calendar_title=0x7f060004;
         public static final int decline=0x7f060003;
-        public static final int hello_world=0x7f060033;
-        public static final int refresh_item=0x7f060036;
         /**  dialogbox 
          */
-        public static final int shelter_name=0x7f060037;
+        public static final int header=0x7f060037;
+        public static final int hello_world=0x7f060033;
+        public static final int refresh_item=0x7f060036;
+        public static final int shelter_name=0x7f060038;
         public static final int store_picture_message=0x7f060001;
         public static final int store_picture_title=0x7f060000;
         /**  Text on a placeholder buy button when Google Play services is not

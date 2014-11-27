@@ -4,6 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <TextView android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/header" 
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:background="@android:color/black"
+        />
+    
     <EditText
         android:id="@+id/shelterName"
         android:layout_width="match_parent"
