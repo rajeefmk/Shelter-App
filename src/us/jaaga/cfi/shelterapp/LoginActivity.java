@@ -36,7 +36,7 @@ import com.google.android.gms.common.SignInButton;
 public class LoginActivity extends Activity {
 	
 	private static String TAG = LoginActivity.class.getSimpleName();
-	private static final String url = "http://192.168.0.107:3000/api/android/auth/";
+	private static final String url = "http://192.168.0.116:3000/api/android/auth/";
 	private static final int REQUEST_CODE_PICK_ACCOUNT = 0;
 	private static final int REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR = 0;
 	SignInButton googlePlusButton;
