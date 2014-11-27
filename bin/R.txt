@@ -429,7 +429,7 @@ int drawable ic_plusone_standard_off_client 0x7f020054
 int drawable ic_plusone_tall_off_client 0x7f020055
 int drawable powered_by_google_dark 0x7f020056
 int drawable powered_by_google_light 0x7f020057
-int id action_addItem 0x7f080056
+int id action_addItem 0x7f080058
 int id action_bar 0x7f080044
 int id action_bar_activity_content 0x7f08002b
 int id action_bar_container 0x7f080043
@@ -443,7 +443,7 @@ int id action_menu_presenter 0x7f08002e
 int id action_mode_bar 0x7f080041
 int id action_mode_bar_stub 0x7f080040
 int id action_mode_close_button 0x7f080033
-int id action_settings 0x7f080055
+int id action_refreshItem 0x7f080059
 int id activity_chooser_view_content 0x7f080034
 int id always 0x7f08001e
 int id beginning 0x7f080023
@@ -456,6 +456,7 @@ int id buy_with_google 0x7f08000e
 int id checkbox 0x7f08003c
 int id classic 0x7f080011
 int id collapseActionView 0x7f080020
+int id contactNumber 0x7f080055
 int id decor_content_parent 0x7f080042
 int id default_activity_button 0x7f080037
 int id dialog 0x7f080021
@@ -476,7 +477,7 @@ int id ifRoom 0x7f08001d
 int id image 0x7f080036
 int id listMode 0x7f080014
 int id list_item 0x7f080038
-int id map 0x7f080054
+int id map 0x7f080057
 int id match_parent 0x7f08000c
 int id middle 0x7f080024
 int id monochrome 0x7f080013
@@ -487,6 +488,7 @@ int id production 0x7f080007
 int id progress_circular 0x7f08002f
 int id progress_horizontal 0x7f080030
 int id radio 0x7f08003e
+int id reverseGeoCode 0x7f080056
 int id sandbox 0x7f080008
 int id satellite 0x7f080002
 int id search_badge 0x7f080048
@@ -500,6 +502,7 @@ int id search_plate 0x7f08004c
 int id search_src_text 0x7f08004d
 int id search_voice_btn 0x7f080051
 int id selectionDetails 0x7f08000b
+int id shelterName 0x7f080054
 int id shortcut 0x7f08003d
 int id showCustom 0x7f08001a
 int id showHome 0x7f080017
@@ -542,8 +545,9 @@ int layout abc_search_dropdown_item_icons_2line 0x7f030014
 int layout abc_search_view 0x7f030015
 int layout abc_simple_dropdown_hint 0x7f030016
 int layout activity_main 0x7f030017
-int layout support_simple_spinner_dropdown_item 0x7f030018
-int layout test_data 0x7f030019
+int layout dialog_box 0x7f030018
+int layout support_simple_spinner_dropdown_item 0x7f030019
+int layout test_data 0x7f03001a
 int menu main 0x7f0c0000
 int string abc_action_bar_home_description 0x7f060024
 int string abc_action_bar_home_description_format 0x7f060027
@@ -561,9 +565,8 @@ int string abc_searchview_description_voice 0x7f06002d
 int string abc_shareactionprovider_share_with 0x7f060031
 int string abc_shareactionprovider_share_with_application 0x7f060030
 int string accept 0x7f060002
-int string acceptItem 0x7f060036
 int string action_settings 0x7f060034
-int string addItem 0x7f060035
+int string add_item 0x7f060035
 int string app_name 0x7f060032
 int string common_android_wear_notification_needs_update_text 0x7f060009
 int string common_android_wear_update_text 0x7f060016
@@ -593,10 +596,13 @@ int string common_google_play_services_update_title 0x7f060013
 int string common_open_on_phone 0x7f060021
 int string common_signin_button_text 0x7f06001f
 int string common_signin_button_text_long 0x7f060020
+int string contact_number 0x7f060038
 int string create_calendar_message 0x7f060005
 int string create_calendar_title 0x7f060004
 int string decline 0x7f060003
 int string hello_world 0x7f060033
+int string refresh_item 0x7f060036
+int string shelter_name 0x7f060037
 int string store_picture_message 0x7f060001
 int string store_picture_title 0x7f060000
 int string wallet_buy_button_place_holder 0x7f060022

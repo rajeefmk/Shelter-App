@@ -6,7 +6,10 @@
     <string name="action_settings">Settings</string>
   
  <!-- actionbar icon names -->
-	<string name="addItem">Add New Shelter</string>
-	<string name="acceptItem">Finished Adding</string>
-
+	<string name="add_item">Add New Shelter</string>
+	<string name="refresh_item">Refresh Map</string>
+	
+ <!-- dialogbox -->
+ 	<string name="shelter_name">Name of Shelter</string>
+	<string name="contact_number">Contact Number</string>
 </resources>
