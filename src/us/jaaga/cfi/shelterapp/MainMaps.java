@@ -12,9 +12,13 @@ import org.json.JSONObject;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -38,8 +42,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -57,7 +61,6 @@ public class MainMaps extends ActionBarActivity {
 	LatLng myLatLng;
 	LatLng newShelterLatLng;
 	LatLngBounds.Builder bld;
-	//boolean canAddMarker;
 	boolean canAddItem = false;
 	boolean canAddMarker = true;
 	
@@ -68,10 +71,10 @@ public class MainMaps extends ActionBarActivity {
 	ProgressDialog pDialog;
 	String api_key;
 	LatLngBounds llb;
-	//private static final String url_latlng = "http://192.168.0.116:3000/api/shelters/";
-	//private static final String url_shelter = "http://192.168.0.116:3000/api/add_shelter";
-	private static final String url_latlng = "http://demo3635045.mockable.io/latlng";
-	private static final String url_shelter = "http://demo3635045.mockable.io/shelteradd";
+	private static final String url_latlng = "http://192.168.0.116:3000/api/shelters/";
+	private static final String url_shelter = "http://192.168.0.116:3000/api/add_shelter";
+	//private static final String url_latlng = "http://demo3635045.mockable.io/latlng";
+	//private static final String url_shelter = "http://demo3635045.mockable.io/shelteradd";
 	
 	private static String TAG = MainMaps.class.getSimpleName();
 	
@@ -240,7 +243,13 @@ public class MainMaps extends ActionBarActivity {
 		
 	private void setUpMap(ArrayList<MarkerObject> mapMarkers2) {
 		
-		
+			Criteria mCriteria = new Criteria();
+			LocationManager mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			String provider = mLocationManager.getBestProvider(mCriteria, false);
+			Location mLocation = mLocationManager.getLastKnownLocation(provider);
+			double lat = mLocation.getLatitude();
+			double lng = mLocation.getLongitude();
+			LatLng currentLoc = new LatLng(lat, lng);
 			
 			/*setUpMap(mapMarkers);
 			Log.i(TAG,"SetUpMap is called");*/
@@ -257,7 +266,17 @@ public class MainMaps extends ActionBarActivity {
 				
 			}
 			
-			bld = new LatLngBounds.Builder();
+			
+			CameraPosition mCameraPosition = new CameraPosition.Builder()
+			.target(currentLoc)
+			.zoom(11)
+			.build();
+			
+			mMap.animateCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
+			mMap.setMyLocationEnabled(true);
+			
+			
+			/*bld = new LatLngBounds.Builder();
 			
 			for(int i=0; i<mapMarkers.size(); i++) {
 				
@@ -266,34 +285,14 @@ public class MainMaps extends ActionBarActivity {
 				  bld.include(markerLatLng);
 			}
 			
-			llb = bld.build();
+			llb = bld.build();*/
 			
 			
 			
-			try{
+			/*try{
 				mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(llb,50));
 				Log.i(TAG, "mMap.animateCamera inside try is called");
 				mMap.setMyLocationEnabled(true);
-				
-				mMap.setOnMyLocationButtonClickListener(new OnMyLocationButtonClickListener() {
-					
-					@Override
-					public boolean onMyLocationButtonClick() {
-						/*try{
-							Thread.sleep(2000);
-						}catch(InterruptedException e){
-							
-							e.printStackTrace();
-							
-						}*/
-						
-						runThread();
-						
-						//LatLngBounds.Builder bld = new LatLngBounds.Builder();
-						
-						return false;
-					}
-				});
 				
 				
 		
@@ -327,43 +326,13 @@ public class MainMaps extends ActionBarActivity {
 				
 				};
 					
-				mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(llb,50));
+				/*mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(llb,50));
 				Log.i(TAG, "mMap.animateCamera outside getViewTreeObs  is called");
 			
-			};
+			}; */
 		
 	}
 
-	protected void runThread() {
-		
-		Thread background = new Thread(){
-			
-			public void run() {
-				
-				try{
-					
-					sleep(2*1000);
-					
-					myLatLng = new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLatitude());
-					bld.include(myLatLng);
-					llb = bld.build();
-					
-					mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(llb,50));
-					Log.i(TAG, "mMap.animateCamera inside runThread is called");
-					
-					
-				}catch(Exception e){
-					
-					e.printStackTrace();
-					
-				}
-			}
-			
-		};
-		
-		background.start();
-		
-	}
 
 	private void hidepDialog() {
 		if(pDialog.isShowing())
@@ -387,6 +356,7 @@ public class MainMaps extends ActionBarActivity {
 		
 		if(item.getItemId() == R.id.action_addItem) {
 			
+			Toast.makeText(this, "Touch on Map to add shelter", Toast.LENGTH_LONG).show();
 			invalidateOptionsMenu();
 			
 			
@@ -452,13 +422,6 @@ public class MainMaps extends ActionBarActivity {
 					
 						AlertDialog alertDialog = alertDialogBuilder.create();
 						alertDialog.show();
-						
-						
-						/*mMap.animateCamera(CameraUpdateFactory.newLatLng(point));
-						
-						mMap.addMarker(new MarkerOptions().position(point).title("Test Title").snippet("Test snippet"));
-						*/
-						
 						
 					}
 				});
